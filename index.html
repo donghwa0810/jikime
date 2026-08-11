@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>바른자세 지키미</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>바른자세 지키미</h1>
+    <p class="disclaimer">※ 의료 진단 도구가 아닙니다. 카메라 기반 자세 습관 모니터링 도구입니다.</p>
+  </header>
+
+  <details id="howto" class="howto" open>
+    <summary>사용 방법 (열기/닫기)</summary>
+    <ol>
+      <li>카메라 권한을 허용해주세요.</li>
+      <li>앉은 방향에 맞게 <b>정면 모드</b> 또는 <b>옆모습 모드</b>를 선택하세요.</li>
+      <li>허리를 펴고 바르게 앉은 상태에서 <b>기준 자세 저장</b> 버튼을 눌러주세요. (모드마다 따로 저장해야 해요)</li>
+      <li>이후 자세가 기준보다 나빠지면 아래 상태 표시와 화면 속 곡선이 빨간색으로 바뀝니다.</li>
+      <li>나쁜 자세가 계속되면 화면 위쪽에 경고 문구가 나타납니다.</li>
+    </ol>
+  </details>
+
+  <main>
+    <div id="stage">
+      <div id="mirror">
+        <video id="video" autoplay playsinline muted></video>
+        <canvas id="overlay"></canvas>
+      </div>
+      <div id="detectionIndicator" class="detect-indicator idle">
+        <span class="dot"></span>
+        <span id="detectionText">대기 중</span>
+      </div>
+    </div>
+
+    <div id="panel">
+      <div id="setup">
+        <div class="mode-toggle">
+          <button id="modeFrontBtn" class="mode-btn active" data-mode="front">정면 모드</button>
+          <button id="modeSideBtn" class="mode-btn" data-mode="side">옆모습 모드</button>
+        </div>
+        <p>바르게 앉은 상태에서 아래 버튼을 눌러 기준 자세를 저장하세요.</p>
+        <button id="calibrateBtn" disabled>기준 자세 저장 (캘리브레이션)</button>
+        <span id="calibrateStatus">카메라 준비 중...</span>
+      </div>
+
+      <div id="status">
+        <div class="metric-row">
+          <span class="label">목(거북목)</span>
+          <span id="neckStatus" class="badge idle">대기</span>
+        </div>
+        <div class="metric-row" id="row2">
+          <span class="label" id="row2Label">등(굽음)</span>
+          <span id="row2Status" class="badge idle">대기</span>
+        </div>
+        <div class="metric-row" id="shoulderRow">
+          <span class="label">어깨 비대칭</span>
+          <span id="shoulderStatus" class="badge idle">대기</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="alertBanner" class="hidden"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
